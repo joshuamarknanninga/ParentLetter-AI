@@ -1,0 +1,3 @@
+const API_BASE = "http://localhost:5000/api";
+export async function createCheckoutSession(priceKey) { try { const r = await fetch(`${API_BASE}/stripe/create-checkout-session`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ priceKey }) }); return await r.json(); } catch { return { message: "Unable to connect to payment server." }; } }
+export async function createPortalSession() { try { const r = await fetch(`${API_BASE}/stripe/create-portal-session`, { method: "POST" }); return await r.json(); } catch { return { message: "Unable to connect to billing portal." }; } }

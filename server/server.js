@@ -1,0 +1,14 @@
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import stripeRoutes from "./routes/stripeRoutes.js";
+import { connectDb } from "./config/db.js";
+dotenv.config();
+const app=express();
+app.use(cors());
+app.use(express.json());
+app.get("/api/health", (req,res)=>res.json({ok:true, service:"ParentLetter AI API"}));
+app.use("/api/stripe", stripeRoutes);
+connectDb(process.env.MONGO_URI);
+const PORT=process.env.PORT||5000;
+app.listen(PORT, ()=> console.log(`Server listening on ${PORT}`));
